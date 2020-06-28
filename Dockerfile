@@ -7,11 +7,13 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip --no-cache-dir install --quiet \
-      'mlflow==1.8.0' \
-      'azure-storage==0.36.0' \
+      'mlflow==1.9.1' \
+      'azure-storage-blob==12.3.2' \
+      'azure-storage-file-share==12.1.2' \
+      'azure-storage-file-datalake==12.0.2' \
+      'azure-storage-queue==12.1.2' \
       'msrestazure~=0.6.3' \
-      'azure-cli==2.3.1' \
-      'psycopg2-binary==2.8.4'
+      'psycopg2-binary==2.8.5'
 
 # REQUIRED FOR AZURE:
 # ENV AZURE_STORAGE_ACCESS_KEY DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=XXXXX;AccountKey=XXXXX
