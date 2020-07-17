@@ -64,50 +64,50 @@ jobs:
         severity-threshold: CRITICAL
         run-quality-checks: false
 
-    # # Clone the Helm chart
-    # - run: |
-    #     git clone https://github.com/statcan/charts.git
-    #     mkdir -p /home/runner/work/_temp/_github_home/
-    #     cp $KUBECONFIG /home/runner/work/_temp/_github_home/KUBECONFIG
+    # Clone the Helm chart
+    - run: |
+        git clone https://github.com/statcan/charts.git
+        mkdir -p /home/runner/work/_temp/_github_home/
+        cp $KUBECONFIG /home/runner/work/_temp/_github_home/KUBECONFIG
 
-    # # Deploy Helm chart
-    # - uses: 'statcan/actions/helm@master'
-    #   env:
-    #     KUBECONFIG: /github/home/KUBECONFIG
-    #   with:
-    #     release: 'mlflow'
-    #     namespace: 'mlflow'
-    #     tillerNamespace: 'mlflow'
-    #     chart: './charts/stable/mlflow'
-    #     token: '${{ github.token }}'
-    #     values: |
-    #       image:
-    #         repository: "${{ env.REGISTRY_NAME }}.azurecr.io/mlflow"
-    #         tag: "${{ github.sha }}"
-    #       ingress:
-    #         enabled: true
-    #         hosts:
-    #           - host: "mlflow.${{ secrets.DOMAIN_NAME }}"
-    #             paths:
-    #               - "/*"
-    #         annotations:
-    #           kubernetes.io/ingress.class: istio
-    #       imagePullSecrets:
-    #         - name: "${{ env.REGISTRY_NAME }}-registry-connection"
-    #       persistence:
-    #         enabled: true
-    #         storageClass: "managed-premium"
-    #         annotations: {}
-    #         accessMode: ReadWriteOnce
-    #         size: 5Gi
-    #       volumes:
-    #         - name: files-mlflow
-    #           persistentVolumeClaim:
-    #             claimName: mlflow-managed-disk
-    #       volumeMounts:
-    #         - name: files-mlflow
-    #           mountPath: /mnt/azfiles
-    #       azure:
-    #         enabled: true
-    #         storageaccountartifact: ${{ secrets.STORAGE_ACCOUNT_ARTIFACT }}
-    #         storageaccountkey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
+    # Deploy Helm chart
+    - uses: 'statcan/actions/helm@master'
+      env:
+        KUBECONFIG: /github/home/KUBECONFIG
+      with:
+        release: 'mlflow'
+        namespace: 'mlflow'
+        tillerNamespace: 'mlflow'
+        chart: './charts/stable/mlflow'
+        token: '${{ github.token }}'
+        values: |
+          image:
+            repository: "${{ env.REGISTRY_NAME }}.azurecr.io/mlflow"
+            tag: "${{ github.sha }}"
+          ingress:
+            enabled: false
+            hosts:
+              - host: "mlflow.${{ secrets.DOMAIN_NAME }}"
+                paths:
+                  - "/*"
+            annotations:
+              kubernetes.io/ingress.class: istio
+          imagePullSecrets:
+            - name: "${{ env.REGISTRY_NAME }}-registry-connection"
+          persistence:
+            enabled: true
+            storageClass: "managed-premium"
+            annotations: {}
+            accessMode: ReadWriteOnce
+            size: 5Gi
+          volumes:
+            - name: files-mlflow
+              persistentVolumeClaim:
+                claimName: mlflow-managed-disk
+          volumeMounts:
+            - name: files-mlflow
+              mountPath: /mnt/mlruns
+          azure:
+            enabled: true
+            storageaccountartifact: ${{ secrets.STORAGE_ACCOUNT_ARTIFACT }}
+            storageaccountkey: ${{ secrets.STORAGE_ACCOUNT_KEY }}

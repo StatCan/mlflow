@@ -17,7 +17,7 @@ RUN pip --no-cache-dir install --quiet \
 
 # REQUIRED FOR AZURE:
 # ENV AZURE_STORAGE_ACCESS_KEY DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=XXXXX;AccountKey=XXXXX
-# ENV MLFLOW_SERVER_FILE_STORE /mnt/azfiles/mlruns
+# ENV MLFLOW_SERVER_FILE_STORE /mnt/mlruns
 # ENV MLFLOW_SERVER_DEFAULT_ARTIFACT_ROOT wasbs://mlflow@XXXXX.blob.core.windows.net/mlartifacts
 
 ENV MLFLOW_SERVER_HOST 0.0.0.0
