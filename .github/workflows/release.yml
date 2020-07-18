@@ -85,7 +85,7 @@ jobs:
             repository: "${{ env.REGISTRY_NAME }}.azurecr.io/mlflow"
             tag: "${{ github.sha }}"
           ingress:
-            enabled: false
+            enabled: true
             hosts:
               - host: "mlflow.${{ secrets.DOMAIN_NAME }}"
                 paths:
