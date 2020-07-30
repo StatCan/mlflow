@@ -111,3 +111,18 @@ jobs:
             enabled: true
             storageaccountartifact: ${{ secrets.STORAGE_ACCOUNT_ARTIFACT }}
             storageaccountkey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
+
+    # Run Kustomize
+    - name: kustomize
+      uses: statcan/actions/kubectl@master
+      with:
+        kubeconfig: ${{ secrets.KUBECONFIG }}
+        args: apply -k .
+      env:
+        MLFLOW_OIDC_CLIENT: ${{ secrets.MLFLOW_OIDC_CLIENT }}
+        MLFLOW_OIDC_SECRET: ${{ secrets.MLFLOW_OIDC_SECRET }}
+        MLFLOW_OIDC_DISCOVERY: ${{ secrets.MLFLOW_OIDC_DISCOVERY }}
+        MLFLOW_JWT_JWKS: ${{ secrets.MLFLOW_JWT_JWKS }}
+        MLFLOW_ADMIN_POLICY_GROUP: ${{ secrets.MLFLOW_ADMIN_POLICY_GROUP }}
+        MLFLOW_POLICY_GROUP: ${{ secrets.MLFLOW_POLICY_GROUP }}
+        MLFLOW_DOMAIN_NAME: ${{ secrets.MLFLOW_DOMAIN_NAME }}
