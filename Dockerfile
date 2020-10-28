@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get install -y git && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip --no-cache-dir install --quiet \
+RUN pip --no-cache-dir install --quiet --no-use-pep517 \
       'mlflow==1.9.1' \
       'azure-storage-blob==12.3.2' \
       'azure-storage-file-share==12.1.2' \
