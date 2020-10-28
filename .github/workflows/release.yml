@@ -61,7 +61,6 @@ jobs:
       with:
         release: 'mlflow'
         namespace: 'mlflow'
-        tillerNamespace: 'mlflow'
         chart: './charts/stable/mlflow'
         token: '${{ github.token }}'
         values: |
