@@ -42,11 +42,11 @@ jobs:
         docker push ${{ env.REGISTRY_NAME }}.azurecr.io/mlflow:${{ github.sha }}
 
     # Scan image for vulnerabilities
-    - uses: Azure/container-scan@v0
-      with:
-        image-name: ${{ env.REGISTRY_NAME }}.azurecr.io/mlflow:${{ github.sha }}
-        severity-threshold: CRITICAL
-        run-quality-checks: false
+    # - uses: Azure/container-scan@v0
+    #   with:
+    #     image-name: ${{ env.REGISTRY_NAME }}.azurecr.io/mlflow:${{ github.sha }}
+    #     severity-threshold: CRITICAL
+    #     run-quality-checks: false
 
     # Clone the Helm chart
     - run: |
